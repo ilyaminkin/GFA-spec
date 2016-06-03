@@ -28,6 +28,7 @@ the beginning of another segment. The link stores the orientation of each segmen
 the amount of basepairs overlapping.
 + **Containment** an overlap between two segments where one is contained in the other.
 + **Path** an ordered list of oriented segments, where each consecutive pair of oriented segments are supported by a link record.
++ **Occurrence** an occurrence of a segment in genome(s). Intended for pan-genome analysis graph usage.
 
 ## Line structure
 
@@ -90,44 +91,25 @@ The Sequence field can be `*` meaning that the sequence is not stored in the GFA
 | `KC`  | `i`  | k-mer count    |
 | `OC`  | `J`  | Occurences     |
 
-#### The OC field
+## Occurrence line
 
-The field is designated for pan-genome analysis graphs and represents all occurences of a segment in the genomes. The field should satisfy the following JSON schema:
-```javascript
-{
-	"$schema": "http://json-schema.org/draft-04/schema#",
-	"title": "Occurrences",
-	"description": "Occurrences of a segment in genomes",
-	"type": "array",
-	"items": {
-		"title": "Occcurence",
-		"type": "object",
-	       	"properties": {
-			"chr": {
-				"description": "An identifier of the chromosome containing the occurence",
-				"type": "string"
-			},
-       			"source": {
-            			"description": "A source containing the chromosome, e.g. a FASTA file",
-		                "type": "string"
-			},
-			"pos": {
-				"description": "Zero-based position of the start of the segment on the positive strand of the chromosome",
-				"type": "number",
-				"minimum": 0
-			},
-			"strand": {
-				"description": "This value is 'true' if the occurence contains the positive version of the segment, i.e. its read from 5' to 3' end, and is false otherwise",
-				"type": "boolean"
-			}
-		},
-		"required": ["chr", "pos", "strand"]
-            }
-        }
-}
-```
+### Required fields
+
+|Col| Field       | Type   |  Regexp/Range      |   Brief description   |
+|----|:-----------|:------ |:-------------------|:----------------------|
+|2   |`Segment`   |String  | `[!-)+-<>-~][!-~]*`| Segment name          |
+|3   |`Chromosome`|String  | `[+-]`             | Chromosome identifier |
+|4   |`Position`  |i       | >=0                | Zero-based position of the start of the segment on the positive strand of the chromosome|
+
+### Optional fields
+
+| Tag   | Type    |  Regexp/Range  | Description    |
+|-------|---------|----------------|----------------|
+| `SRC` | String  | `[!-~]+`       | Source of the chromosome, i.e. a FASTA-file |
+
 
 ## Link line
+The field is designated for pan-genome analysis graphs and represents all occurences of a segment in the genomes.
 
 Links are the primary mechanism to connect segments. Links connect oriented segments. A link from `A` to `B` means that the end of `A` overlaps with the start of `B`. If either is marked with `-`, we replace the sequence of the segment with its reverse complement, whereas a `+` indicates the segment sequence is used as-is.
 
