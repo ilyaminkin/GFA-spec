@@ -41,6 +41,7 @@ Each line in GFA has tab-delimited fields and the first field defines the type o
 |`L`  |  Link line |
 |`C`  |  Containment line |
 |`P`  |  Path line |
+|`O`  |  Occurrence line |
 
 ## Optional fields
 
@@ -89,7 +90,6 @@ The Sequence field can be `*` meaning that the sequence is not stored in the GFA
 | `RC`  | `i`  | Read count     |
 | `FC`  | `i`  | Fragment count |
 | `KC`  | `i`  | k-mer count    |
-| `OC`  | `J`  | Occurences     |
 
 ## Occurrence line
 
