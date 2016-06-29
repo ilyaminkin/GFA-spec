@@ -98,8 +98,9 @@ The Sequence field can be `*` meaning that the sequence is not stored in the GFA
 |Col| Field       | Type   |  Regexp/Range      |   Brief description   |
 |----|:-----------|:------ |:-------------------|:----------------------|
 |2   |`Segment`   |String  | `[!-)+-<>-~][!-~]*`| Segment name          |
-|3   |`Chromosome`|String  | `[+-]`             | Chromosome identifier |
-|4   |`Position`  |i       | >=0                | Zero-based position of the start of the segment on the positive strand of the chromosome|
+|3   |`Chromosome`|String  | `[!-~]+`           | Chromosome identifier |
+|4   |`Strand`    |String  | `[+-]`		| `+` if it is an occurrence of the positive version of the segment, `-` otherwise|
+|5   |`Position`  |i       | >=0                | Zero-based position of the start of the segment on the positive strand of the chromosome|
 
 ### Optional fields
 
